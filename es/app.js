@@ -2,12 +2,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const core = new CoreModule();
     const templateModule = new TemplateModule(core);
 
-    const templatesToLoad = [
-        { name: 'about', target: 'main-content' },
-        { name: 'contact', target: 'contact-section' },
-        { name: 'portfolio', target: 'portfolio-section' },
-       // Add more templates as needed
-    ];
+    function loadTemplate(templateName) {
+        templateModule.loadTemplate(templateName, 'main-content');
+        window.history.pushState({}, '', templateName + '.html');
+    }
 
-    templateModule.loadTemplates(templatesToLoad);
+    // Event listener for the "About" link
+    document.getElementById('nav-about').addEventListener('click', function(e) {
+        e.preventDefault();
+        loadTemplate('about');
+    });
+
+    document.getElementById('nav-contact').addEventListener('click', function(e) {
+        e.preventDefault();
+        loadTemplate('contact');
+    });
+
+    // ... other event listeners ...
 });
